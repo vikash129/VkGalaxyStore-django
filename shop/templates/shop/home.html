@@ -1,0 +1,119 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %} MyStore.Com {% endblock %}
+
+{% block css %}
+<style>
+    body .no-padding {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+
+    .col-md-3 {
+        display: inline-block;
+        margin-left: -4px;
+    }
+
+    .carousel-indicators .active {
+        background-color: blue;
+    }
+
+    .col-md-3 img {
+        width: 110%;
+        height: 240px;
+
+    }
+
+    body .carousel-indicator li {
+        background-color: aquamarine;
+    }
+
+    body .carousel-indicators {
+        bottom: 0;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background: black no-repeat center center;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block body %}
+
+
+<div class="carousel-container">
+
+    <div id="demo" class="carousel slide my-3" data-ride='carousel'>
+
+        <ul class="carousel-indicators">
+            <li class="active" data-target="#demo" data-slide-to="0"></li>
+
+            {% for i in range %}
+            <li data-target="#demo" data-slide-to="{{ i }}"></li>
+            {% endfor %}
+
+        </ul>
+
+        <!-- slideshow starts form here -->
+
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/media/{{ product.0.prod_image }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ product.0.prod_name }} </h5>
+                            <p class="card-text"> {{ product.0.desc }} </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                {% for i in product|slice:'1:' %}
+
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/media/{{ i.prod_image }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ i.prod_name }} </h5>
+                            <p class="card-text"> {{ i.desc }} </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+
+                {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+            </div>
+            <div class="carousel-item">
+                {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+        <!-- next and prev slide icons -->
+    </div>
+    <a class="carousel-control-prev" href="#demo" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"> < </span>
+        <!-- <span class="sr-only">Previous</span> -->
+    </a>
+
+    <a class="carousel-control-next" href="#demo" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"> > </span>
+        <!-- <span class="sr-only">Next</span> -->
+    </a>
+    
+</div>
+
+{% endblock %}
